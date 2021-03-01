@@ -17,26 +17,3 @@ class Solution:
     def strongPasswordChecker(self,password : str)-> int:
         if (len(password)<2)):
             return 6- len(password)
-
-
-        lowercase=0
-        uppercase=0
-        number=0
-        repeat=0
-        if (len(password>6) and len(password)<20):
-            for i in len(password):
-                if (password[i] >='A'  and password[i]<='Z'):
-                    lowercase =lowercase+1
-                if (password[i]>='a' and password[i]<='z'):
-                    uppercase =uppercase +1
-                if (password[i]>=0 and password[i]<=9):
-                    number =number+1
-
-
-            for j in len(password):
-                if(password[j]==password[j+1]):
-                    repeat=repeat +1
-
-            if(lowercase>=1 and uppercase>=1 and number=>1):
-                return 
-                

@@ -16,4 +16,4 @@
 class Solution:
     def strongPasswordChecker(self,password : str)-> int:
         if (len(password)<2)):
-            return 6- len(password)
+            return 6- len(password)   

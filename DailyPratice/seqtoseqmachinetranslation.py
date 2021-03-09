@@ -7,78 +7,68 @@ import numpy as np
 import spacy # Tokenization
 from torch.utils.tensorboard import SummaryWriter  # loss and 
 
-spacy_ger=spacy.load('de')
-spacy_eng=spacy.load('en')
 
-def tokenizer_gen(text):
-    return [tok.text for tok in spacy_gen.tokenizer(text))]
+#Data Preparation and  Pre-Processing
+
+spacy_ger=spacy.load("de")
+spacy_eng=spacy.laod("en")
+
+
+def tokenizer_ger(text):
+    return [token.text for token  in spacy_ger(text)]
 
 def tokenizer_eng(text):
-    return [tok.text for tok in spacy_eng.tokenizer(text)]
-
-#example of Tokenizer
-#[" Hello I am a Hero "] -> ["Hello","I", "am", "a","Hero"]
+    return [token.text for token in spacy_eng(text)]
 
 
-german=Field(tokenize=tokenize_gen,lower=True,
-              init_token='<sos>',eos_token='<eos' )
+germam=Field(tokenize=tokenizer_ger,lower=True,
+             init_token="<sos>",eos_token="<eos")
 
-english=Field(tokenize=tokenize_eng, lower=True,
-              init_token='<sos>',eos_token='<eos>')
-#Spilt the data  into train, validate and  test
-train_data,validaton_data,test_data=Multi30k,splits(exts=('.de','.en'),fields=(german, english))
+english=Field(tokenize=tokenier_eng,lower=True,
+             init_token="<sos>",eos_token="<eos>")
 
-#train the german vocab
-german.built_vocab(train_data,max_size=10000, min_freq=2)
 
-#train the english vocab
-english.built_vocab(train_data,max_size=10000, min_freq=2)
 
-class Encoder(nn.Module):
-    #input_size as vocabulary
-    #embedding_size
-    #hidden_layers
-    #number fo layers
-    #Dropout
-    def __init__(self,input_size,embedding_size,hidden_layer,num_layers,p):
-        super(Encoder,self).__init__() #why?
-        self.hidden_layer=hidden_layer
-        self.num_layers=num_layers
-        
+train_data, validate_data,test_data=Multi30k.splits(exts=(".de",".en"),
+                                                    fields=(german, english))
+
+
+german.built_vocab(train_data,max_size=10000,min_freq=2)
+english.bulit_vocab(traib_data,max_size=1000,min_freq=2)
+
+
+
+#Encoders
+class EncoderLSTM(nn.module):
+    def __init__(Self,input_size,embedding_size,hidden_size,num_layer,p):
+        super(EncoderLSTM,self).__init__()
+
+        #Size of the one hot vectors  that will  be the input for encoder
+        self.input_size=input_size
+
+        # Output size of the embedding
+        self.embedding_size=embeddiing_size
+
+        #Dimensions of the  NN's  inside the lstm cell/(hs,cs)'s dimensions
+        self.hidden_size=hidden_size
+
+        #Number of the layer inside the LSTM
+        self.num_layer=num_layer
+
+        #Regularization Parameter
         self.dropout=nn.Dropout(p)
-        self.embedding=nn.Embedding(input_size, embedding_size)
-        self.rnn=nn.LSTM(embeddding_size,hidden_size, num_layers, droput=p )
-    
-    def forward(self,x)
-    #x is vector of indices
-    #x shape:(seq_length, N)
-    embeddding=self.dropout(self.embedding(x))
-    #embedding  shape : (seq_length, N, embedding_size)
-    output,(hidden, cell)=self.rnn(embedding)
-     return hidden,cell
-
-
-         
-
-class Decoder(nn.Module):
-    def __init__(Self, input_size,embedding_sie, hidden_layer, output_size, num_layer, p):
-        super(Encoder,self).__init__() #why?
-        self.hidden_layer=hidden_layer
-        self.num_layers=num_layers
+        self.tag=True
         
-        self.dropout=nn.Dropout(p)
-        self.embedding=nn.Embedding(input_size, embedding_size)
-        self.rnn=nn.LSTM(embeddding_size,hidden_size, num_layers, droput=p )
-    
-    def forward(self,x)
-    #x is vector of indices
-    #x shape:(seq_length, N)
-    embeddding=self.dropout(self.embedding(x))
-    #embedding  shape : (seq_length, N, embedding_size)
-    output,(hidden, cell)=self.rnn(embedding)
-     return hidden,cell
+        #Shape------[5376,300][input_size, embedding_size]
+        self.embedding=nn.Embeddding(self.input_size,self.embedding_size)
+        
+        #Shape----- [300,2,1024]
+        self.LSTM=nn.LSTM(self.embedding_size,hidden_size,num_layer)
+
+
+        
+
+#create batches of training, testing, and validation data using iteratorrs
 
 
 
-class Seq2Seq(nn.module):
-    #combine Encoder and Decoder

@@ -2,7 +2,7 @@
 # For example, 121 is palindrome while 123 is not.
 
  #solution 1
- class Solution:
+class Solution:
     def isPalindrome(self, x: int) -> bool:
         sum=0
         z=x

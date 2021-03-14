@@ -14,7 +14,7 @@
 
 
 
-# First try but time Exceeding
+# First try but time Exceeding     
 class Solution:
     def bulbSwitch(self, n: int) -> int:
         n=[True]*n

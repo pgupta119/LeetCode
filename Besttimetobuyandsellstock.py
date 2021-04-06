@@ -14,15 +14,23 @@
 #Solution;
 
 class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
+    def maxProfit(self, prices):
+        #Initially maximum difference is zero
         max_diff=0
+        # Initialize the maximum  of the array at the last index.
         max_number=prices[-1]
+        # loop for checking the maximum difference and assign maximum value
         for j in range(len(prices)-2,-1,-1):
+            # if current index value is greater than max_number then assign the current value to max_number
             if(prices[j]>max_number):
                 max_number=prices[j]
-            # elif(max_diff<(max_number-prices[j])):
-            #         max_diff=(max_number-prices[j])
+                # otherwise take the difference of max_number and current value,and compare with max_difference which provide max value usin max function
             else:
                 max_diff= max (max_diff,(max_number-prices[j]))
-        
+        #return the max difference after execution of the loop
         return max_diff
+  
+sol=Solution()
+print(sol.maxProfit([7,1,5,3,6,4]))
+
+#output should be 5

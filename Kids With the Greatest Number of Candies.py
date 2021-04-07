@@ -19,7 +19,7 @@
 #Input: candies = [12,1,12], extraCandies = 10
 #Output: [true,false,true]
 
-#My Approach is  to take a new empty list where we can store the bool value. The current index value of the candies
+#My Approach is  to take a new empty list where we can store the bool value. The current index value of the candies 
 #is added with extra candies which and then compare every new temp value  with the  max value if the maximum value is equal and less than
 # then it will Insert "True" Value in the n Output list
 

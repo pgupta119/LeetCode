@@ -11,26 +11,30 @@
 
 # First Solution for Two Sum
 
-class Solution(object):
+class Solution():
    def twoSum(self, nums, target):
+      # first loop is for each element is sum with(Second loop) each element and check the sum is equal to target number
         for i in range(len(nums)):
             for j in range((i+1),len(nums)):
                 if (nums[i]+nums[j]==target):
                     return(i,j)
+               
+               
+print(Solution.twoSum([2,7,11,15],9))
 
 
 
 # Second Solution using Dictionary
             
-class Solution(object):
+class Solution():
    def twoSum(self, nums, target):
      
       dictionary = {}
-      print(dictionary)
+      #initialize the dictionary
       for i in range(len(nums)):
          if target - nums[i] in dictionary:
-            print(dictionary)
             return [dictionary[target - nums[i]],i]
          else:
             dictionary[nums[i]]=i
-            print(dictionary)
+print(Solution.twoSum({2,7,11,15},9))
+            

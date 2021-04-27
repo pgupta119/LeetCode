@@ -26,3 +26,9 @@ class Solution:
             emptyBottles = emptyBottles % numExchange + fullBottles
             maximum += fullBottles
         return maximum
+    
+   
+sol=Solution()
+print(sol.numWaterBottles(9,3))
+#Output=13
+      

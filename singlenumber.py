@@ -35,7 +35,12 @@ class Solution:
 # Output: 3
 
 
-Solution:
+#Solution:
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
         return int((3*sum(set(nums))-sum(nums))/2)
+ 
+sol=Solution()
+print(sol.singkeNumber([2,2,3,2])
+#Output:3
+      
